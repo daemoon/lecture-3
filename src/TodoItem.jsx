@@ -13,9 +13,12 @@ export class TodoItem extends React.PureComponent {
         this.setState({
             done: true,
         })
+        this.props.save(true);
     };
 
     render() {
-        return (<li onClick={this.doItem}>{this.props.value}<input type="checkbox" checked={this.state.done}/></li>)
+        return (<li onClick={this.doItem}>{this.props.value}<input type="checkbox"
+                                                                   checked={this.state.done}/>{this.props.savingStatus !== 'none' && this.props.savingStatus}
+        </li>)
     }
 }

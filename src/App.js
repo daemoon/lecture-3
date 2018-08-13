@@ -3,6 +3,7 @@ import './App.css';
 import {TodoItem} from "./TodoItem";
 import {ItemAdder} from "./ItemInput";
 import * as Immutable from 'immutable';
+import {getSaver} from "./getSaver";
 
 class App extends React.PureComponent {
     constructor() {
@@ -22,13 +23,14 @@ class App extends React.PureComponent {
     };
 
     render() {
+        const TodoItemWithSave = getSaver(TodoItem);
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Things to do:</h1>
                 </header>
                 <ul className="todo-list">
-                    {this.state.items.map(item => <TodoItem value={item}/>)}
+                    {this.state.items.map(item => <TodoItemWithSave value={item}/>)}
                 </ul>
                 <ItemAdder onAdd={this.onAdd}/>
             </div>
