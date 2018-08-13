@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
-import {TodoItem} from "./TodoItem";
-import {ItemAdder} from "./ItemInput";
 import * as Immutable from 'immutable';
-import {getSaver} from "./getSaver";
+import {SortableContainer, arrayMove} from 'react-sortable-hoc';
+import {ItemsContainer} from "./ItemsContainer";
 
 class App extends React.PureComponent {
     constructor() {
@@ -12,7 +11,11 @@ class App extends React.PureComponent {
             items: Immutable.List(['Water flowers', 'Buy groceries', 'Learn React']),
         };
     }
-
+    onSortEnd = ({oldIndex, newIndex}) => {
+        this.setState({
+            items: Immutable.List(arrayMove(this.state.items.toArray(), oldIndex, newIndex)),
+        });
+    };
 
     onAdd = (value) => {
             const newItems = this.state.items.push(value);
@@ -23,17 +26,9 @@ class App extends React.PureComponent {
     };
 
     render() {
-        const TodoItemWithSave = getSaver(TodoItem);
+        const ItemsContainerSortable = SortableContainer(ItemsContainer);
         return (
-            <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">Things to do:</h1>
-                </header>
-                <ul className="todo-list">
-                    {this.state.items.map(item => <TodoItemWithSave value={item}/>)}
-                </ul>
-                <ItemAdder onAdd={this.onAdd}/>
-            </div>
+            <ItemsContainerSortable items={this.state.items} onSortEnd={this.onSortEnd}/>
         );
     }
 }
