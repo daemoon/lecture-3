@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export class TodoItem extends React.Component {
+export class TodoItem extends React.PureComponent {
     constructor(props) {
         super(props);
 
