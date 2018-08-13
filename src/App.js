@@ -2,18 +2,19 @@ import React, {Component} from 'react';
 import './App.css';
 import {TodoItem} from "./TodoItem";
 import {ItemAdder} from "./ItemInput";
+import * as Immutable from 'immutable';
 
 class App extends React.PureComponent {
     constructor() {
         super();
         this.state = {
-            items: ['Water flowers', 'Buy groceries', 'Learn React'],
+            items: Immutable.List(['Water flowers', 'Buy groceries', 'Learn React']),
         };
     }
 
 
     onAdd = (value) => {
-            const newItems = [...this.state.items, value];
+            const newItems = this.state.items.push(value);
             this.setState({
                 items: newItems,
             });
