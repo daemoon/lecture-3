@@ -13,8 +13,7 @@ class App extends React.PureComponent {
 
 
     onAdd = (value) => {
-            const newItems = this.state.items;
-            newItems.push(value);
+            const newItems = [...this.state.items, value];
             this.setState({
                 items: newItems,
             });
